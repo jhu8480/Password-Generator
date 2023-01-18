@@ -7,31 +7,27 @@ function writePassword() {
 }
 generateBtn.addEventListener("click", writePassword);
 
-// Logic to generate password:
+// Logic to generate password below:
 
 function generatePassword() {
   // Validate the password length:
-  const passwordLength = prompt('How many characters do you need in your password?');
+  const passwordLength = window.prompt('How many characters do you need in your password?');
   const isValidLength = validateLength(passwordLength);
-  if (!isValidLength) {
-    alert('The length is not valid, it must be at least 8 characters and no more than 128 characters!');
-    generatePassword();
-  }
+  if (!isValidLength) return 'The length is not valid, it must be at least 8 characters and no more than 128 characters! Try again';
+
 
   // Ask the user about the type of characters to include
-  const numOfNumeric = prompt(`How many numeric characters do you need? You can choose from 0 up to ${passwordLength} characters`);
-  let numOfCharactersRemain = passwordLength - numOfNumeric;
-  const numOfUpperCase = prompt(`How many upper case letters do you need? You can choose from 0 up to ${numOfCharactersRemain} characters`);
-  numOfCharactersRemain = numOfCharactersRemain - numOfUpperCase;
-  const numOfLowerCase = prompt(`How many upper case letters do you need? You can choose from 0 up to ${numOfCharactersRemain} characters`);
-  numOfCharactersRemain = numOfCharactersRemain - numOfLowerCase;
-  const numOfSpecialCharacters = prompt(`How many upper case letters do you need? You can choose from 0 up to ${numOfCharactersRemain} characters`);
-  
-  // Generate the password based on user's criteria
-  
-  
+  const numOfNumeric = prompt('How many numeric characters do you need?');
+  const numOfUpperCase = prompt('How many upper case characters do you need?');
+  const numOfLowerCase = prompt('How many lower characters do you need?');
+  const numOfSpecialCharacters = prompt('How many special characters do you need?');
 
+
+  // Generate the password based on user's criteria
+  const result = producePassword(numOfNumeric, numOfUpperCase, numOfLowerCase, numOfSpecialCharacters);
+  return result;
 }
+
 
 function validateLength(number) {
   return number > 7 & number < 129;
@@ -49,8 +45,10 @@ function producePassword(numOfNumeric, numOfUpperCase, numOfLowerCase, numOfSpec
   stringArr.push(lowerCaseString);
   stringArr.push(specialCharacterString);
   
-  // shuffle the order of elements here
-
+  // TODO: shuffle the order of elements here
+  const joined = stringArr.join('');
+  console.log(joined);
+  return joined;
 }
 
 function produceNumericString(numOfNumeric) {
@@ -100,4 +98,3 @@ function produceSpecialCharacters(numOfSpecialCharacters) {
   console.log(result.join(''));
   return result.join('');
 }
-
