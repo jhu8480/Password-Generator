@@ -1,4 +1,5 @@
 // Password Class
+
 class Password {
   constructor(passwordLength) {
     this.leftToChoose = passwordLength;
@@ -7,44 +8,47 @@ class Password {
   getNumeric() {
     const userInput = window.prompt('How many numeric characters do you need?');
     const userInputNumber = parseInt(userInput);
+    console.log(parseInt(userInputNumber));
     this.leftToChoose = this.leftToChoose - userInputNumber;
-    if(this.leftToChoose === NaN) return false;
+    if(this.leftToChoose === NaN) return 0;
     console.log(this.leftToChoose);
     return userInputNumber;
   }
 
   getUpperCase() {
+    if(this.leftToChoose <= 0) return 0;
+
     const userInput = window.prompt(`How many upper case characters do you need?You can choose no more than ${this.leftToChoose} characters`);
     const userInputNumber = parseInt(userInput);
     this.leftToChoose = this.leftToChoose - userInputNumber;
-    if(this.leftToChoose === NaN) return false;
+    if(this.leftToChoose === NaN) return 0;
     console.log(this.leftToChoose);
     return userInputNumber;
   }
 
   getLowerCase() {
+    if(this.leftToChoose <= 0) return 0;
+
     const userInput = window.prompt(`How many lower case characters do you need?You can choose no more than ${this.leftToChoose} characters`);
     const userInputNumber = parseInt(userInput);
     this.leftToChoose = this.leftToChoose - userInputNumber;
-    if(this.leftToChoose === NaN) return false;
+    if(this.leftToChoose === NaN) return 0;
     console.log(this.leftToChoose);
     return userInputNumber;
   }
 
   getSpecialCharacter() {
-    const userInput = window.prompt(`How many special characters do you need?You can choose no more than ${this.leftToChoose} characters`);
-    const userInputNumber = parseInt(userInput);
-    this.leftToChoose = this.leftToChoose - userInputNumber;
-    if(this.leftToChoose === NaN) return false;
-    console.log(this.leftToChoose);
-    return userInputNumber;
+    if(this.leftToChoose <= 0) return 0;
+
+    window.alert(`You will have ${this.leftToChoose} special characters in your password`);
+    return this.leftToChoose;
   }
 }
 
 
 
 
-// Starter code
+// Starter code ----------------------------------------
 const generateBtn = document.querySelector("#generate");
 function writePassword() {
   let password = generatePassword();
@@ -52,6 +56,10 @@ function writePassword() {
   passwordText.value = password;
 }
 generateBtn.addEventListener("click", writePassword);
+
+// ------------------------------------------------------
+
+
 
 // Logic to generate password below:
 
@@ -65,17 +73,9 @@ function generatePassword() {
 
   // Ask the user about the type of characters to include
   const numOfNumeric = password.getNumeric();
-  if(!numOfNumeric) return 'Something went wrong, try again';
-
   const numOfUpperCase = password.getUpperCase();
-  if(!numOfUpperCase) return 'Something went wrong, try again';
-
-  const numOfLowerCase = password.getUpperCase();
-  if(!numOfLowerCase) return 'Something went wrong, try again';
-
-  const numOfSpecialCharacters = password.getUpperCase();
-  if(!numOfSpecialCharacters) return 'Something went wrong, try again';
-  
+  const numOfLowerCase = password.getLowerCase();
+  const numOfSpecialCharacters = password.getSpecialCharacter();
 
   // Generate the password based on user's criteria
   return producePassword(numOfNumeric, numOfUpperCase, numOfLowerCase, numOfSpecialCharacters);
@@ -88,21 +88,36 @@ function validateLength(number) {
 
 
 function producePassword(numOfNumeric, numOfUpperCase, numOfLowerCase, numOfSpecialCharacters) {
+  // Generate different type of strings
   const numericString = produceNumericString(numOfNumeric);
   const upperCaseString = produceUpperCaseString(numOfUpperCase);
   const lowerCaseString = produceLowerCaseString(numOfLowerCase);
   const specialCharacterString = produceSpecialCharacters(numOfSpecialCharacters);
 
   const stringArr = [];
+  stringArr.push(specialCharacterString);
   stringArr.push(numericString);
   stringArr.push(upperCaseString);
   stringArr.push(lowerCaseString);
-  stringArr.push(specialCharacterString);
   
-  // TODO: shuffle the order of elements here
+  // shuffle the the password string here three times!
   const joined = stringArr.join('');
-  console.log(joined);
-  return joined;
+  const randomIndex = Math.floor(Math.random() * joined.length);
+  const joined1 = joined.slice(0, randomIndex);
+  const joined2 = joined.slice(randomIndex, joined.length);
+  const joined3 = joined2.concat(joined1);
+
+  const randomIndex2 = Math.floor(Math.random() * joined3.length);
+  const joined4 = joined3.slice(0, randomIndex2);
+  const joined5 = joined3.slice(randomIndex2, joined3.length);
+  const joined6 = joined5.concat(joined4);
+
+  const randomIndex3 = Math.floor(Math.random() * joined6.length);
+  const joined7 = joined6.slice(0, randomIndex3);
+  const joined8 = joined6.slice(randomIndex3, joined6.length);
+  const joined9 = joined8.concat(joined7);
+
+  return joined9;
 }
 
 function produceNumericString(numOfNumeric) {
