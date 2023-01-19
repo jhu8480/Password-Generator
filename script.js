@@ -1,3 +1,49 @@
+// Password Class
+class Password {
+  constructor(passwordLength) {
+    this.leftToChoose = passwordLength;
+  }
+
+  getNumeric() {
+    const userInput = window.prompt('How many numeric characters do you need?');
+    const userInputNumber = parseInt(userInput);
+    this.leftToChoose = this.leftToChoose - userInputNumber;
+    if(this.leftToChoose === NaN) return false;
+    console.log(this.leftToChoose);
+    return userInputNumber;
+  }
+
+  getUpperCase() {
+    const userInput = window.prompt(`How many upper case characters do you need?You can choose no more than ${this.leftToChoose} characters`);
+    const userInputNumber = parseInt(userInput);
+    this.leftToChoose = this.leftToChoose - userInputNumber;
+    if(this.leftToChoose === NaN) return false;
+    console.log(this.leftToChoose);
+    return userInputNumber;
+  }
+
+  getLowerCase() {
+    const userInput = window.prompt(`How many lower case characters do you need?You can choose no more than ${this.leftToChoose} characters`);
+    const userInputNumber = parseInt(userInput);
+    this.leftToChoose = this.leftToChoose - userInputNumber;
+    if(this.leftToChoose === NaN) return false;
+    console.log(this.leftToChoose);
+    return userInputNumber;
+  }
+
+  getSpecialCharacter() {
+    const userInput = window.prompt(`How many special characters do you need?You can choose no more than ${this.leftToChoose} characters`);
+    const userInputNumber = parseInt(userInput);
+    this.leftToChoose = this.leftToChoose - userInputNumber;
+    if(this.leftToChoose === NaN) return false;
+    console.log(this.leftToChoose);
+    return userInputNumber;
+  }
+}
+
+
+
+
 // Starter code
 const generateBtn = document.querySelector("#generate");
 function writePassword() {
@@ -15,23 +61,31 @@ function generatePassword() {
   const isValidLength = validateLength(passwordLength);
   if (!isValidLength) return 'The length is not valid, it must be at least 8 characters and no more than 128 characters! Try again';
 
+  const password = new Password(parseInt(passwordLength));
 
   // Ask the user about the type of characters to include
-  const numOfNumeric = prompt('How many numeric characters do you need?');
-  const numOfUpperCase = prompt('How many upper case characters do you need?');
-  const numOfLowerCase = prompt('How many lower characters do you need?');
-  const numOfSpecialCharacters = prompt('How many special characters do you need?');
+  const numOfNumeric = password.getNumeric();
+  if(!numOfNumeric) return 'Something went wrong, try again';
 
+  const numOfUpperCase = password.getUpperCase();
+  if(!numOfUpperCase) return 'Something went wrong, try again';
+
+  const numOfLowerCase = password.getUpperCase();
+  if(!numOfLowerCase) return 'Something went wrong, try again';
+
+  const numOfSpecialCharacters = password.getUpperCase();
+  if(!numOfSpecialCharacters) return 'Something went wrong, try again';
+  
 
   // Generate the password based on user's criteria
-  const result = producePassword(numOfNumeric, numOfUpperCase, numOfLowerCase, numOfSpecialCharacters);
-  return result;
+  return producePassword(numOfNumeric, numOfUpperCase, numOfLowerCase, numOfSpecialCharacters);
 }
 
 
 function validateLength(number) {
   return number > 7 & number < 129;
 }
+
 
 function producePassword(numOfNumeric, numOfUpperCase, numOfLowerCase, numOfSpecialCharacters) {
   const numericString = produceNumericString(numOfNumeric);
