@@ -9,6 +9,7 @@ class Password {
     const userInput = window.prompt('How many numeric characters do you need?');
     const userInputNumber = parseInt(userInput);
     console.log(parseInt(userInputNumber));
+
     this.leftToChoose = this.leftToChoose - userInputNumber;
     if(this.leftToChoose === NaN) return 0;
     console.log(this.leftToChoose);
@@ -20,6 +21,7 @@ class Password {
 
     const userInput = window.prompt(`How many upper case characters do you need?You can choose no more than ${this.leftToChoose} characters`);
     const userInputNumber = parseInt(userInput);
+
     this.leftToChoose = this.leftToChoose - userInputNumber;
     if(this.leftToChoose === NaN) return 0;
     console.log(this.leftToChoose);
@@ -28,9 +30,11 @@ class Password {
 
   getLowerCase() {
     if(this.leftToChoose <= 0) return 0;
+    if(this.leftToChoose === NaN) return NaN;
 
     const userInput = window.prompt(`How many lower case characters do you need?You can choose no more than ${this.leftToChoose} characters`);
     const userInputNumber = parseInt(userInput);
+
     this.leftToChoose = this.leftToChoose - userInputNumber;
     if(this.leftToChoose === NaN) return 0;
     console.log(this.leftToChoose);
@@ -39,7 +43,7 @@ class Password {
 
   getSpecialCharacter() {
     if(this.leftToChoose <= 0) return 0;
-
+    if(this.leftToChoose === NaN) return NaN;
     window.alert(`You will have ${this.leftToChoose} special characters in your password`);
     return this.leftToChoose;
   }
