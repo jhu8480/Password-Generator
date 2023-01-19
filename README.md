@@ -25,4 +25,4 @@ Executing program: N/A
 ## Screenshot
 
 Here's the screenshot of the user interface:
-(./Assets/03-javascript-homework-demo.png)
+[screenshot](./Assets/03-javascript-homework-demo.png)
