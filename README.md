@@ -17,7 +17,7 @@ Users need to type in three inputs to generate a password:
 
 ## Getting started
 
-Here's the link to the deployed page:
+Here's the link to the deployed page: https://jhu8480.github.io/Password-Generator/
 Dependencies: N/A
 Installing: N/A
 Executing program: N/A
